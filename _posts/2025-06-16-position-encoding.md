@@ -1,8 +1,8 @@
 ---
-title:"Position Encoding"
-date:2025-06-16 00:00:00
-categories:[LLM]
-tags:[transformer]
+title: Position Encoding
+categories: [llm]
+tags: [transformer]
+date: 2025-06-16 02:57:28 +0530
 ---
 
 # Hello world
