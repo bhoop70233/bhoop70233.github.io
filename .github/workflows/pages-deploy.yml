@@ -25,8 +25,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.set-artifact-name.outputs.name }}
 
     steps:
+      - name: Set artifact name
+        id: set-artifact-name
+        run: echo "name=site-${{ github.run_id }}" >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -60,7 +66,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "_site${{ steps.pages.outputs.base_path }}"
-          name: "site-artifact"
+          name: ${{ steps.set-artifact-name.outputs.name }}
 
   deploy:
     environment:
@@ -73,4 +79,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: "site-artifact"
+          artifact_name: ${{ needs.build.outputs.artifact_name }}
